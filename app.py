@@ -56,7 +56,7 @@ custom_css = f"""
 
     /* Button styling */
     .stButton>button {{
-        background-color: #0f3460; /* Dark blue for buttons */
+        background-color: #a7d9e8; /* Dark blue for buttons */
         color: white; /* White text on buttons for good contrast */
         border-radius: 8px;
         border: none;
@@ -66,7 +66,7 @@ custom_css = f"""
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }}
     .stButton>button:hover {{
-        background-color: #533483; /* Purple on hover for interactivity */
+        background-color: #7bc6e0; /* Purple on hover for interactivity */
         transform: translateY(-2px);
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
     }}
