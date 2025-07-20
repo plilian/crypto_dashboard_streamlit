@@ -1,4 +1,4 @@
-# 📈 Pumpies Crypto Dashboard
+# 📈 Pumpies Crypto Dashboard (Streamlit)
 
 **Pumpies Crypto Dashboard** is a powerful and user-friendly **Streamlit** application built for real-time cryptocurrency market insights. Whether you're a casual enthusiast or a serious trader, this dashboard offers a comprehensive suite of tools to track market trends, analyze coin data, and monitor key indicators — all from your browser.
 
