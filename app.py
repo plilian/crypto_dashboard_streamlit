@@ -10,7 +10,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- Fixed Dark Theme CSS ---
+# --- Dark Theme CSS ---
 custom_css = f"""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
@@ -33,8 +33,8 @@ custom_css = f"""
 
     /* Sidebar styling (Commands Menu) */
     .sidebar .sidebar-content {{
-        background-color: #000000; /* Pure black for sidebar background as requested */
-        color: #e0e0e0; /* Light text on black sidebar for readability */
+        background-color: #000000;
+        color: #000000; /* Dark text on sidebar for readability */
     }}
     /* Adjust sidebar header and radio button text color for consistency */
     .stSidebar h1, .stSidebar h2, .stSidebar h3, .stSidebar h4, .stSidebar h5, .stSidebar h6 {{
