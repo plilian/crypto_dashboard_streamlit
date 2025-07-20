@@ -1,5 +1,6 @@
 # app.py
 import streamlit as st
+st.title("✅ Pumpies started")
 import commands
 import utils
 
