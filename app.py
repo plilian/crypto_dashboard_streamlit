@@ -10,62 +10,55 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- Custom Theme Settings in Sidebar ---
-st.sidebar.header("Theme Customization")
-
-# Initialize default colors in session_state if not already set
-# The sidebar background is set to black as per your request
-if 'main_bg' not in st.session_state:
-    st.session_state.main_bg = "#1a1a2e" # Dark blue/purple
-if 'sidebar_bg' not in st.session_state:
-    st.session_state.sidebar_bg = "#000000" # Black for sidebar background
-if 'accent_color' not in st.session_state:
-    st.session_state.accent_color = "#e94560" # Accent red/pink for titles
-if 'button_bg' not in st.session_state:
-    st.session_state.button_bg = "#0f3460" # Dark blue for buttons
-if 'text_color' not in st.session_state:
-    st.session_state.text_color = "#e0e0e0" # Light grey for main text
-if 'button_hover_color' not in st.session_state:
-    st.session_state.button_hover_color = "#533483" # Purple for button hover
-
-# Allow user to pick colors using st.color_picker
-st.session_state.main_bg = st.sidebar.color_picker("Main Background", st.session_state.main_bg, key="main_bg_picker")
-st.session_state.sidebar_bg = st.sidebar.color_picker("Sidebar Background", st.session_state.sidebar_bg, key="sidebar_bg_picker")
-st.session_state.accent_color = st.sidebar.color_picker("Title/Accent Color", st.session_state.accent_color, key="accent_color_picker")
-st.session_state.button_bg = st.sidebar.color_picker("Button Background", st.session_state.button_bg, key="button_bg_picker")
-st.session_state.button_hover_color = st.sidebar.color_picker("Button Hover Color", st.session_state.button_hover_color, key="button_hover_color_picker")
-st.session_state.text_color = st.sidebar.color_picker("Text Color", st.session_state.text_color, key="text_color_picker")
-
-
-# --- Dynamic CSS Generation ---
-# This section generates the CSS using the colors chosen by the user or default values.
+# --- Fixed Dark Theme CSS ---
+# این بخش تمام استایل‌های ثابت و زیبای شما را تعریف می‌کند.
 custom_css = f"""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
+    /* General styling for text and font */
     html, body, [class*="st-"] {{
         font-family: 'Inter', sans-serif;
-        color: {st.session_state.text_color}; /* Dynamic Light text on dark background */
+        color: #e0e0e0; /* Light text color for readability on dark backgrounds */
     }}
+
+    /* Main content area styling */
     .main {{
-        background-color: {st.session_state.main_bg}; /* Dynamic Main content area background */
+        background-color: #1a1a2e; /* Deep blue/purple for main content */
         padding: 20px;
         border-radius: 10px;
     }}
     .stApp {{
-        background-color: {st.session_state.main_bg}; /* Dynamic Whole app background */
+        background-color: #1a1a2e; /* Whole app background - same as main for seamless look */
     }}
+
+    /* Sidebar styling (Commands Menu) */
     .sidebar .sidebar-content {{
-        background-color: {st.session_state.sidebar_bg}; /* Dynamic Sidebar background */
-        color: {st.session_state.text_color};
+        background-color: #000000; /* Pure black for sidebar background as requested */
+        color: #e0e0e0; /* Light text on black sidebar for readability */
     }}
+    /* Adjust sidebar header and radio button text color for consistency */
+    .stSidebar h1, .stSidebar h2, .stSidebar h3, .stSidebar h4, .stSidebar h5, .stSidebar h6 {{
+        color: #e0e0e0; /* Ensure sidebar headers are light */
+    }}
+    .stRadio > label {{ /* Targeting radio button labels in sidebar */
+        color: #e0e0e0; /* Ensure radio button text is light */
+    }}
+    .stRadio [data-testid="stRadio"] > div > label {{
+        color: #e0e0e0; /* Specific selector for radio button text */
+    }}
+
+
+    /* Titles and headings styling */
     h1, h2, h3, h4, h5, h6 {{
-        color: {st.session_state.accent_color}; /* Dynamic Accent color for titles */
+        color: #e94560; /* Vibrant accent color for titles */
         text-align: left;
     }}
+
+    /* Button styling */
     .stButton>button {{
-        background-color: {st.session_state.button_bg}; /* Dynamic Button color */
-        color: white; /* Keep button text white for contrast */
+        background-color: #0f3460; /* Dark blue for buttons */
+        color: white; /* White text on buttons for good contrast */
         border-radius: 8px;
         border: none;
         padding: 10px 20px;
@@ -74,52 +67,67 @@ custom_css = f"""
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }}
     .stButton>button:hover {{
-        background-color: {st.session_state.button_hover_color}; /* Dynamic Button hover effect */
+        background-color: #533483; /* Purple on hover for interactivity */
         transform: translateY(-2px);
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
     }}
-    .stTextInput>div>div>input {{
-        background-color: {st.session_state.sidebar_bg}; /* Input field styling, using sidebar bg for consistency */
-        color: {st.session_state.text_color};
-        border-radius: 8px;
-        border: 1px solid {st.session_state.accent_color}; /* Using accent color for border */
-        padding: 10px;
-    }}
+
+    /* Input fields and Selectboxes styling */
+    .stTextInput>div>div>input,
     .stSelectbox>div>div>div {{
-        background-color: {st.session_state.sidebar_bg}; /* Selectbox styling */
-        color: {st.session_state.text_color};
+        background-color: #16213e; /* Slightly lighter dark blue for input fields */
+        color: #e0e0e0; /* Light text color for input */
         border-radius: 8px;
-        border: 1px solid {st.session_state.accent_color}; /* Using accent color for border */
+        border: 1px solid #533483; /* Accent border color */
         padding: 10px;
     }}
+    /* Styling for dropdown options in selectbox */
+    .stSelectbox > div[data-baseweb="select"] ul {{
+        background-color: #16213e; /* Dropdown menu background */
+        color: #e0e0e0; /* Dropdown menu text color */
+    }}
+    .stSelectbox > div[data-baseweb="select"] li:hover {{
+        background-color: #0f3460; /* Dropdown menu item hover */
+    }}
+
+
+    /* Other Streamlit elements styling */
     .stAlert {{
         border-radius: 8px;
     }}
     .stCode {{
-        background-color: {st.session_state.sidebar_bg}; /* Code block styling */
+        background-color: #16213e; /* Darker background for code blocks */
         border-radius: 8px;
         padding: 15px;
     }}
     .stExpander {{
-        background-color: {st.session_state.sidebar_bg}; /* Expander styling */
+        background-color: #16213e; /* Darker background for expanders */
         border-radius: 8px;
         padding: 10px;
         margin-bottom: 10px;
     }}
     .stExpander > div > div > p {{
-        color: {st.session_state.text_color};
+        color: #e0e0e0;
     }}
+
     /* Footer styling */
     .footer {{
         position: fixed;
         left: 0;
         bottom: 0;
         width: 100%;
-        background-color: {st.session_state.sidebar_bg}; /* Footer uses sidebar bg */
-        color: {st.session_state.text_color};
+        background-color: #16213e; /* Footer background */
+        color: #e0e0e0;
         text-align: center;
         padding: 10px 0;
         font-size: 0.9em;
+    }}
+    .footer a {{
+        color: #e94560; /* Accent color for footer links */
+        text-decoration: none;
+    }}
+    .footer a:hover {{
+        text-decoration: underline;
     }}
     </style>
 """
@@ -129,7 +137,7 @@ st.markdown(custom_css, unsafe_allow_html=True)
 st.title("📈 Pumpies Crypto Dashboard")
 st.markdown("Welcome to the comprehensive Pumpies Crypto Dashboard! Use the tools below to get real-time market information.")
 
-# --- Sidebar Navigation ---
+# --- Sidebar Navigation (Commands Menu) ---
 st.sidebar.header("Commands")
 # This is for picking what command to run from the sidebar.
 command_choice = st.sidebar.radio(
