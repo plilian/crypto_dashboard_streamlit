@@ -11,7 +11,6 @@ st.set_page_config(
 )
 
 # --- Fixed Dark Theme CSS ---
-# این بخش تمام استایل‌های ثابت و زیبای شما را تعریف می‌کند.
 custom_css = f"""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
