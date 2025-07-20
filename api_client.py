@@ -1,4 +1,3 @@
-# api_client.py (English Version)
 import requests
 import urllib.parse
 from datetime import datetime
