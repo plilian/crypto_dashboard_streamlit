@@ -1,0 +1,11 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python/
+env/
+venv/
+*.env # IMPORTANT: Do NOT commit your .env file with API keys!
+.streamlit/
+command_usage_log_streamlit_en.csv # Your log file
