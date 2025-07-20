@@ -18,7 +18,7 @@ custom_css = f"""
     /* General styling for text and font */
     html, body, [class*="st-"] {{
         font-family: 'Inter', sans-serif;
-        color: #e0e0e0; /* Light text color for readability on dark backgrounds */
+        color: #000000; /* Light text color for readability on dark backgrounds */
     }}
 
     /* Main content area styling */
