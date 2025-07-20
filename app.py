@@ -38,13 +38,13 @@ custom_css = f"""
     }}
     /* Adjust sidebar header and radio button text color for consistency */
     .stSidebar h1, .stSidebar h2, .stSidebar h3, .stSidebar h4, .stSidebar h5, .stSidebar h6 {{
-        color: #e0e0e0; /* Ensure sidebar headers are light */
+        color: #000000; /* Ensure sidebar headers are light */
     }}
     .stRadio > label {{ /* Targeting radio button labels in sidebar */
-        color: #e0e0e0; /* Ensure radio button text is light */
+        color: #000000; /* Ensure radio button text is light */
     }}
     .stRadio [data-testid="stRadio"] > div > label {{
-        color: #e0e0e0; /* Specific selector for radio button text */
+        color: #000000; /* Specific selector for radio button text */
     }}
 
 
