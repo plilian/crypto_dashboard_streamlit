@@ -1,5 +1,3 @@
-# commands.py
-
 import streamlit as st
 import utils
 import api_client
