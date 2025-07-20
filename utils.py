@@ -1,4 +1,3 @@
-# Utils (English Version)
 import streamlit as st
 import uuid
 from datetime import datetime
