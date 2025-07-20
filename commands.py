@@ -2,17 +2,10 @@
 
 import streamlit as st
 import utils
+import api_client
 import pandas as pd
 from datetime import datetime
 import uuid
-
-class DummyAPIClient:
-    def __getattr__(self, name):
-        def dummy(*args, **kwargs):
-            return None, f"[Dummy] Skipped {name}"
-        return dummy
-
-api_client = DummyAPIClient()
 
 # --- Helper for company coin display (moved here for modularity)
 coin_name_translations = {
