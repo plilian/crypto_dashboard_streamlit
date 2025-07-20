@@ -18,12 +18,12 @@ custom_css = f"""
     /* General styling for text and font */
     html, body, [class*="st-"] {{
         font-family: 'Inter', sans-serif;
-        color: #000000; /* Light text color for readability on dark backgrounds */
+        color: #000000; /* dark text color for readability on light backgrounds */
     }}
 
     /* Main content area styling */
     .main {{
-        background-color: #1a1a2e; /* Deep blue/purple for main content */
+        background-color: #f0f2f6; /* Deep blue/purple for main content */
         padding: 20px;
         border-radius: 10px;
     }}
