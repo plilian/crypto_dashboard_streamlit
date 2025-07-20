@@ -10,7 +10,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- Fixed Dark Theme CSS (with VERY LIGHT BLUE sidebar background) ---
+# --- Dark Theme CSS ---
 custom_css = f"""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
@@ -18,12 +18,12 @@ custom_css = f"""
     /* General styling for text and font */
     html, body, [class*="st-"] {{
         font-family: 'Inter', sans-serif;
-        color: #e0e0e0; /* Default light text color for readability on dark backgrounds */
+        color: #000000; /* dark text color for readability on light backgrounds */
     }}
 
-    /* --- Main Content Area Styling --- */
+    /* Main content area styling */
     .main {{
-        background-color: #1a1a2e; /* Deep blue/purple for main content */
+        background-color: #e0f2f7; /* Deep blue/purple for main content */
         padding: 20px;
         border-radius: 10px;
     }}
@@ -31,62 +31,32 @@ custom_css = f"""
         background-color: #1a1a2e; /* Whole app background - same as main for seamless look */
     }}
 
-    /* IMPORTANT: Adjust Streamlit's main content block for wider content */
-    .block-container {{
-        padding-left: 2rem; /* Reduce default horizontal padding */
-        padding-right: 2rem; /* Reduce default horizontal padding */
-        padding-top: 1rem;   /* Adjust vertical padding */
-        padding-bottom: 1rem; /* Adjust vertical padding */
-        max-width: 95% !important; /* Allow content to use more of the screen width */
+    /* Sidebar styling (Commands Menu) */
+    .sidebar .sidebar-content {{
+        background-color: #000000;
+        color: #000000; /* Dark text on sidebar for readability */
+    }}
+    /* Adjust sidebar header and radio button text color for consistency */
+    .stSidebar h1, .stSidebar h2, .stSidebar h3, .stSidebar h4, .stSidebar h5, .stSidebar h6 {{
+        color: #000000; /* Ensure sidebar headers are light */
+    }}
+    .stRadio > label {{ /* Targeting radio button labels in sidebar */
+        color: #000000; /* Ensure radio button text is light */
+    }}
+    .stRadio [data-testid="stRadio"] > div > label {{
+        color: #000000; /* Specific selector for radio button text */
     }}
 
 
-    /* --- Sidebar Styling (NOW WITH VERY LIGHT BLUE BACKGROUND) --- */
-    /* Target the main sidebar container by its data-testid */
-    [data-testid="stSidebar"] {{
-        background-color: #e0f2f7 !important; /* VERY LIGHT BLUE for sidebar background */
-    }}
-    /* Target the sidebar content area specifically */
-    [data-testid="stSidebarContent"] {{
-        background-color: #e0f2f7 !important; /* VERY LIGHT BLUE for sidebar content */
-    }}
-
-    /* Sidebar Header (Commands) */
-    [data-testid="stSidebarHeader"] h2 {{
-        color: #000000 !important; /* Black text for sidebar header */
-    }}
-
-    /* Sidebar Radio Button Text */
-    /* Target the paragraph text inside the span within the radio button label */
-    [data-testid="stSidebar"] .stRadio div[data-testid="stRadio"] label span p {{
-        color: #000000 !important; /* Black text for radio button options */
-    }}
-    /* Sidebar Radio Button Text on Hover */
-    [data-testid="stSidebar"] .stRadio div[data-testid="stRadio"] label:hover span p {{
-        color: #e94560 !important; /* Accent red/pink on hover */
-    }}
-    /* Sidebar Radio Button Text when Selected */
-    [data-testid="stSidebar"] .stRadio div[data-testid="stRadio"] label[data-checked="true"] span p {{
-        color: #e94560 !important; /* Accent red/pink for selected option */
-    }}
-    /* Adjust the circle of the radio button */
-    [data-testid="stSidebar"] .stRadio div[data-testid="stRadio"] label div[data-testid="stFlex"] svg circle {{
-        fill: #000000 !important; /* Make the radio button circle black */
-    }}
-    [data-testid="stSidebar"] .stRadio div[data-testid="stRadio"] label[data-checked="true"] div[data-testid="stFlex"] svg circle {{
-        fill: #e94560 !important; /* Make selected radio button circle accent red */
-    }}
-
-
-    /* Titles and headings styling (Main Content) */
+    /* Titles and headings styling */
     h1, h2, h3, h4, h5, h6 {{
         color: #e94560; /* Vibrant accent color for titles */
         text-align: left;
     }}
 
-    /* Button styling (Current styling, not the suggested light ones, as they are for main content) */
+    /* Button styling */
     .stButton>button {{
-        background-color: #0f3460; /* Dark blue for buttons */
+        background-color: #a7d9e8; /* Dark blue for buttons */
         color: white; /* White text on buttons for good contrast */
         border-radius: 8px;
         border: none;
@@ -96,7 +66,7 @@ custom_css = f"""
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }}
     .stButton>button:hover {{
-        background-color: #533483; /* Purple on hover for interactivity */
+        background-color: #7bc6e0; /* Purple on hover for interactivity */
         transform: translateY(-2px);
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
     }}
@@ -104,7 +74,7 @@ custom_css = f"""
     /* Input fields and Selectboxes styling */
     .stTextInput>div>div>input,
     .stSelectbox>div>div>div {{
-        background-color: #16213e; /* Uses a dark background color for input fields (consistent with main app) */
+        background-color: #16213e; /* Slightly lighter dark blue for input fields */
         color: #e0e0e0; /* Light text color for input */
         border-radius: 8px;
         border: 1px solid #533483; /* Accent border color */
@@ -125,12 +95,12 @@ custom_css = f"""
         border-radius: 8px;
     }}
     .stCode {{
-        background-color: #16213e; /* Dark background for code blocks */
+        background-color: #16213e; /* Darker background for code blocks */
         border-radius: 8px;
         padding: 15px;
     }}
     .stExpander {{
-        background-color: #16213e; /* Dark background for expanders */
+        background-color: #16213e; /* Darker background for expanders */
         border-radius: 8px;
         padding: 10px;
         margin-bottom: 10px;
@@ -145,7 +115,7 @@ custom_css = f"""
         left: 0;
         bottom: 0;
         width: 100%;
-        background-color: #16213e; /* Footer background uses a dark color consistent with main app */
+        background-color: #16213e; /* Footer background */
         color: #e0e0e0;
         text-align: center;
         padding: 10px 0;
