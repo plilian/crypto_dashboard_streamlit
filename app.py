@@ -27,25 +27,40 @@ custom_css = f"""
         background-color: #1a1a2e;
     }}
 
+    /* --- Layout and Padding Fixes - EXTREMELY AGGRESSIVE OVERRIDES --- */
+
+    /* Target the outermost Streamlit app container for full width */
+    [data-testid="stAppViewContainer"] {{
+        width: 100% !important;
+        max-width: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }}
+
+    /* Target the main content block container - crucial for overall width */
     .block-container {{
         padding-left: 0.5rem !important;
         padding-right: 0.5rem !important;
         padding-top: 1rem !important;
         padding-bottom: 1rem !important;
-        max-width: 100% !important;
+        max-width: 100% !important; /* Force full available width */
     }}
 
+    /* Target ALL Streamlit-generated divs for width and spacing control */
+    /* This is a very broad selector, but often necessary for stubborn layout issues */
     div[data-testid^="st"] {{
         max-width: none !important;
         margin: 0 !important;
         padding: 0 !important;
-        width: 100% !important;
-        min-width: 0 !important;
-        flex-basis: auto !important;
-        flex-grow: 1 !important;
-        flex-shrink: 1 !important;
+        width: 100% !important; /* Explicitly set width to 100% */
+        min-width: 0 !important; /* Remove any minimum width constraints */
+        flex-basis: auto !important; /* Allow flex items to size based on content */
+        flex-grow: 1 !important; /* Allow flex items to grow and fill space */
+        flex-shrink: 1 !important; /* Allow flex items to shrink */
     }}
 
+    /* Specific overrides for common Streamlit layout containers */
+    /* These are often flex containers that might default to row direction */
     [data-testid="stHorizontalBlock"],
     [data-testid="stVerticalBlock"],
     [data-testid="stColumn"],
@@ -60,8 +75,26 @@ custom_css = f"""
         flex-basis: auto !important;
         flex-grow: 1 !important;
         flex-shrink: 1 !important;
+        /* Ensure these containers themselves don't limit content width */
+        display: flex !important; /* Ensure flex behavior */
+        flex-direction: column !important; /* Force column layout if they are rows */
+        align-items: flex-start !important; /* Align items to start if column */
     }}
 
+    /* Special handling for st.columns to ensure they expand properly */
+    /* This is critical if you are using st.columns in your commands.py */
+    .st-emotion-cache-xyz /* Replace with actual class if you inspect */
+    div[data-testid="stColumn"] {{
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        flex-basis: auto !important;
+        flex-grow: 1 !important;
+        flex-shrink: 1 !important;
+    }}
+
+
+    /* Ensure markdown and plain text elements use full available width */
     [data-testid="stMarkdownContainer"],
     [data-testid="stText"] {{
         width: 100% !important;
@@ -73,6 +106,7 @@ custom_css = f"""
         min-width: 0 !important;
     }}
 
+    /* Specific adjustment for paragraph tags within markdown/text */
     [data-testid="stMarkdownContainer"] p,
     [data-testid="stText"] p,
     p {{
@@ -84,6 +118,8 @@ custom_css = f"""
         min-width: 0 !important;
     }}
 
+
+    /* Style for Alert boxes (st.info, st.warning, etc.) - Ensure they are wide */
     .stAlert {{
         border-radius: 8px;
         padding: 1rem !important;
@@ -92,7 +128,9 @@ custom_css = f"""
         max-width: none !important;
         min-width: 0 !important;
     }}
+    /* --- End Layout and Padding Fixes --- */
 
+    /* --- Sidebar Styling (VERY LIGHT BLUE BACKGROUND) --- */
     [data-testid="stSidebar"] {{
         background-color: #e0f2f7 !important;
     }}
@@ -120,11 +158,13 @@ custom_css = f"""
         fill: #e94560 !important;
     }}
 
+    /* Titles and headings styling (Main Content) */
     h1, h2, h3, h4, h5, h6 {{
         color: #e94560 !important;
         text-align: left;
     }}
 
+    /* Button styling (Current styling, consistent with dark main content) */
     .stButton>button {{
         background-color: #a7d9e8 !important;
         color: #000000 !important;
@@ -142,6 +182,7 @@ custom_css = f"""
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
     }}
 
+    /* Input fields and Selectboxes styling */
     .stTextInput>div>div>input,
     .stSelectbox>div>div>div {{
         background-color: #16213e !important;
