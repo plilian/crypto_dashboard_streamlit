@@ -28,7 +28,7 @@ custom_css = f"""
         border-radius: 10px;
     }}
     .stApp {{
-        background-color: #000000;
+        background-color: #34495e;
     }}
 
     /* Sidebar styling (Commands Menu) */
