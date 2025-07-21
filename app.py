@@ -18,33 +18,33 @@ custom_css = f"""
     /* General styling for text and font */
     html, body, [class*="st-"] {{
         font-family: 'Inter', sans-serif;
-        color: #000000; /* dark text color for readability on light backgrounds */
+        color: #000000;
     }}
 
     /* Main content area styling */
     .main {{
-        background-color: #e0f2f7; /* Deep blue/purple for main content */
+        background-color: #e0f2f7;
         padding: 20px;
         border-radius: 10px;
     }}
     .stApp {{
-        background-color: #1a1a2e; /* Whole app background - same as main for seamless look */
+        background-color: #1a1a2e;
     }}
 
     /* Sidebar styling (Commands Menu) */
     .sidebar .sidebar-content {{
         background-color: #000000;
-        color: #000000; /* Dark text on sidebar for readability */
+        color: #e0f2f7;
     }}
     /* Adjust sidebar header and radio button text color for consistency */
     .stSidebar h1, .stSidebar h2, .stSidebar h3, .stSidebar h4, .stSidebar h5, .stSidebar h6 {{
-        color: #000000; /* Ensure sidebar headers are light */
+        color: #e0f2f7; /* Ensure sidebar headers are light */
     }}
     .stRadio > label {{ /* Targeting radio button labels in sidebar */
-        color: #000000; /* Ensure radio button text is light */
+        color: #e0f2f7; /* Ensure radio button text is light */
     }}
     .stRadio [data-testid="stRadio"] > div > label {{
-        color: #000000; /* Specific selector for radio button text */
+        color: #e0f2f7; /* Specific selector for radio button text */
     }}
 
 
