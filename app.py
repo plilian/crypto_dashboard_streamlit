@@ -2,6 +2,7 @@ import streamlit as st
 import commands
 import utils
 
+# --- Initial Page Config ---
 st.set_page_config(
     page_title="Pumpies Crypto Dashboard",
     page_icon="📈",
@@ -9,159 +10,54 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# --- Dark Theme CSS ---
 custom_css = f"""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
+    /* General styling for text and font */
     html, body, [class*="st-"] {{
         font-family: 'Inter', sans-serif;
-        color: #000000; /* Default text color for the main content area */
+        color: #000000; /* dark text color for readability on light backgrounds */
     }}
 
+    /* Main content area styling */
     .main {{
-        background-color: #e0f2f7; /* Light blue/grey for main content area */
+        background-color: #e0f2f7; /* Deep blue/purple for main content */
         padding: 20px;
         border-radius: 10px;
     }}
     .stApp {{
-        background-color: #1a1a2e; /* Whole app background - deep blue/purple */
+        background-color: #1a1a2e; /* Whole app background - same as main for seamless look */
     }}
 
-    /* Target the outermost Streamlit app container for full width */
-    [data-testid="stAppViewContainer"] {{
-        width: 100% !important;
-        max-width: none !important;
-        padding: 0 !important;
-        margin: 0 !important;
+    /* Sidebar styling (Commands Menu) */
+    .sidebar .sidebar-content {{
+        background-color: #000000;
+        color: #000000; /* Dark text on sidebar for readability */
     }}
-
-    /* Target the main content block container - crucial for overall width */
-    .block-container {{
-        padding-left: 0.5rem !important;
-        padding-right: 0.5rem !important;
-        padding-top: 1rem !important;
-        padding-bottom: 1rem !important;
-        max-width: 100% !important; /* Force full available width */
+    /* Adjust sidebar header and radio button text color for consistency */
+    .stSidebar h1, .stSidebar h2, .stSidebar h3, .stSidebar h4, .stSidebar h5, .stSidebar h6 {{
+        color: #000000; /* Ensure sidebar headers are light */
     }}
-
-    /* Target ALL Streamlit-generated divs for width and spacing control */
-    /* This is a very broad selector, but often necessary for stubborn layout issues */
-    div[data-testid^="st"] {{
-        max-width: none !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        width: 100% !important; /* Explicitly set width to 100% */
-        min-width: 0 !important; /* Remove any minimum width constraints */
-        flex-basis: auto !important; /* Allow flex items to size based on content */
-        flex-grow: 1 !important; /* Allow flex items to grow and fill space */
-        flex-shrink: 1 !important; /* Allow flex items to shrink */
+    .stRadio > label {{ /* Targeting radio button labels in sidebar */
+        color: #000000; /* Ensure radio button text is light */
     }}
-
-    /* Specific overrides for common Streamlit layout containers */
-    /* These are often flex containers that might default to row direction */
-    [data-testid="stHorizontalBlock"],
-    [data-testid="stVerticalBlock"],
-    [data-testid="stColumn"],
-    [data-testid="stForm"],
-    [data-testid="stContainer"]
-    {{
-        width: 100% !important;
-        max-width: none !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        min-width: 0 !important;
-        flex-basis: auto !important;
-        flex-grow: 1 !important;
-        flex-shrink: 1 !important;
-        /* Ensure these containers themselves don't limit content width */
-        display: flex !important; /* Ensure flex behavior */
-        flex-direction: column !important; /* Force column layout if they are rows */
-        align-items: flex-start !important; /* Align items to start if column */
-    }}
-
-    /* Ensure markdown and plain text elements use full available width */
-    [data-testid="stMarkdownContainer"],
-    [data-testid="stText"] {{
-        width: 100% !important;
-        max-width: none !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        word-break: break-word;
-        overflow-wrap: break-word;
-        min-width: 0 !important;
-    }}
-
-    /* Specific adjustment for paragraph tags within markdown/text */
-    [data-testid="stMarkdownContainer"] p,
-    [data-testid="stText"] p,
-    p {{
-        max-width: none !important;
-        width: 100% !important;
-        margin-top: 0.5rem !important;
-        margin-bottom: 0.5rem !important;
-        padding: 0 !important;
-        min-width: 0 !important;
-    }}
-
-    /* Styling for preformatted text (used by backticks in markdown) */
-    pre, code {{
-        width: 100% !important;
-        max-width: none !important;
-        word-break: break-word;
-        overflow-wrap: break-word;
-        white-space: pre-wrap; /* Ensures long lines wrap */
+    .stRadio [data-testid="stRadio"] > div > label {{
+        color: #000000; /* Specific selector for radio button text */
     }}
 
 
-    /* Style for Alert boxes (st.info, st.warning, etc.) - Ensure they are wide */
-    .stAlert {{
-        border-radius: 8px;
-        padding: 1rem !important;
-        margin-bottom: 1rem !important;
-        width: 100% !important;
-        max-width: none !important;
-        min-width: 0 !important;
-    }}
-    /* --- End Layout and Padding Fixes --- */
-
-    /* --- Sidebar Styling (VERY LIGHT BLUE BACKGROUND) --- */
-    [data-testid="stSidebar"] {{
-        background-color: #e0f2f7 !important;
-    }}
-    [data-testid="stSidebarContent"] {{
-        background-color: #e0f2f7 !important;
-    }}
-
-    [data-testid="stSidebarHeader"] h2 {{
-        color: #000000 !important;
-    }}
-
-    [data-testid="stSidebar"] .stRadio div[data-testid="stRadio"] label span p {{
-        color: #000000 !important;
-    }}
-    [data-testid="stSidebar"] .stRadio div[data-testid="stRadio"] label:hover span p {{
-        color: #e94560 !important;
-    }}
-    [data-testid="stSidebar"] .stRadio div[data-testid="stRadio"] label[data-checked="true"] span p {{
-        color: #e94560 !important;
-    }}
-    [data-testid="stSidebar"] .stRadio div[data-testid="stRadio"] label div[data-testid="stFlex"] svg circle {{
-        fill: #000000 !important;
-    }}
-    [data-testid="stSidebar"] .stRadio div[data-testid="stRadio"] label[data-checked="true"] div[data-testid="stFlex"] svg circle {{
-        fill: #e94560 !important;
-    }}
-
-    /* Titles and headings styling (Main Content) */
+    /* Titles and headings styling */
     h1, h2, h3, h4, h5, h6 {{
-        color: #e94560 !important;
+        color: #e94560; /* Vibrant accent color for titles */
         text-align: left;
     }}
 
-    /* Button styling (Current styling, consistent with dark main content) */
+    /* Button styling */
     .stButton>button {{
-        background-color: #a7d9e8 !important;
-        color: #000000 !important;
+        background-color: #a7d9e8; /* Dark blue for buttons */
+        color: white; /* White text on buttons for good contrast */
         border-radius: 8px;
         border: none;
         padding: 10px 20px;
@@ -170,8 +66,7 @@ custom_css = f"""
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }}
     .stButton>button:hover {{
-        background-color: #7bc6e0 !important;
-        color: #000000 !important;
+        background-color: #7bc6e0; /* Purple on hover for interactivity */
         transform: translateY(-2px);
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
     }}
@@ -179,48 +74,55 @@ custom_css = f"""
     /* Input fields and Selectboxes styling */
     .stTextInput>div>div>input,
     .stSelectbox>div>div>div {{
-        background-color: #16213e !important;
-        color: #e0e0e0 !important;
+        background-color: #16213e; /* Slightly lighter dark blue for input fields */
+        color: #e0e0e0; /* Light text color for input */
         border-radius: 8px;
-        border: 1px solid #533483;
+        border: 1px solid #533483; /* Accent border color */
         padding: 10px;
     }}
+    /* Styling for dropdown options in selectbox */
     .stSelectbox > div[data-baseweb="select"] ul {{
-        background-color: #16213e !important;
-        color: #e0e0e0 !important;
+        background-color: #16213e; /* Dropdown menu background */
+        color: #e0e0e0; /* Dropdown menu text color */
     }}
     .stSelectbox > div[data-baseweb="select"] li:hover {{
-        background-color: #0f3460 !important;
+        background-color: #0f3460; /* Dropdown menu item hover */
     }}
 
+
+    /* Other Streamlit elements styling */
+    .stAlert {{
+        border-radius: 8px;
+    }}
     .stCode {{
-        background-color: #16213e !important;
+        background-color: #16213e; /* Darker background for code blocks */
         border-radius: 8px;
         padding: 15px;
     }}
     .stExpander {{
-        background-color: #16213e !important;
+        background-color: #16213e; /* Darker background for expanders */
         border-radius: 8px;
         padding: 10px;
         margin-bottom: 10px;
     }}
     .stExpander > div > div > p {{
-        color: #e0e0e0 !important;
+        color: #e0e0e0;
     }}
 
+    /* Footer styling */
     .footer {{
         position: fixed;
         left: 0;
         bottom: 0;
         width: 100%;
-        background-color: #16213e;
+        background-color: #16213e; /* Footer background */
         color: #e0e0e0;
         text-align: center;
         padding: 10px 0;
         font-size: 0.9em;
     }}
     .footer a {{
-        color: #e94560;
+        color: #e94560; /* Accent color for footer links */
         text-decoration: none;
     }}
     .footer a:hover {{
@@ -230,10 +132,13 @@ custom_css = f"""
 """
 st.markdown(custom_css, unsafe_allow_html=True)
 
+# --- Main Dashboard Title and Welcome Message ---
 st.title("📈 Pumpies Crypto Dashboard")
 st.markdown("Welcome to the comprehensive Pumpies Crypto Dashboard! Use the tools below to get real-time market information.")
 
+# --- Sidebar Navigation (Commands Menu) ---
 st.sidebar.header("Commands")
+# This is for picking what command to run from the sidebar.
 command_choice = st.sidebar.radio(
     "Choose a command:",
     (
@@ -252,13 +157,17 @@ command_choice = st.sidebar.radio(
         "Token Orders",
         "Trade Info"
     ),
-    index=0
+    index=0 # Starts on the Introduction page
 )
 
+# Small helper for coin names (not a big deal, just for display)
 coin_name_translations = {
     "bitcoin": "Bitcoin",
     "ethereum": "Ethereum"
 }
+
+# --- Command Logic: What happens when you pick a command ---
+# Now calling functions from the 'commands' module for each choice.
 
 if command_choice == "Introduction":
     commands.display_introduction()
@@ -302,6 +211,7 @@ elif command_choice == "Token Orders":
 elif command_choice == "Trade Info":
     commands.display_trade_info()
 
+# --- Footer Section ---
 st.markdown(
     """
     <div class='footer'>
