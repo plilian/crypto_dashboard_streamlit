@@ -15,19 +15,17 @@ custom_css = f"""
 
     html, body, [class*="st-"] {{
         font-family: 'Inter', sans-serif;
-        color: #000000;
+        color: #000000; /* Default text color for the main content area */
     }}
 
     .main {{
-        background-color: #e0f2f7;
+        background-color: #e0f2f7; /* Light blue/grey for main content area */
         padding: 20px;
         border-radius: 10px;
     }}
     .stApp {{
-        background-color: #1a1a2e;
+        background-color: #1a1a2e; /* Whole app background - deep blue/purple */
     }}
-
-    /* --- Layout and Padding Fixes - EXTREMELY AGGRESSIVE OVERRIDES --- */
 
     /* Target the outermost Streamlit app container for full width */
     [data-testid="stAppViewContainer"] {{
@@ -81,19 +79,6 @@ custom_css = f"""
         align-items: flex-start !important; /* Align items to start if column */
     }}
 
-    /* Special handling for st.columns to ensure they expand properly */
-    /* This is critical if you are using st.columns in your commands.py */
-    .st-emotion-cache-xyz /* Replace with actual class if you inspect */
-    div[data-testid="stColumn"] {{
-        width: 100% !important;
-        max-width: none !important;
-        min-width: 0 !important;
-        flex-basis: auto !important;
-        flex-grow: 1 !important;
-        flex-shrink: 1 !important;
-    }}
-
-
     /* Ensure markdown and plain text elements use full available width */
     [data-testid="stMarkdownContainer"],
     [data-testid="stText"] {{
@@ -116,6 +101,15 @@ custom_css = f"""
         margin-bottom: 0.5rem !important;
         padding: 0 !important;
         min-width: 0 !important;
+    }}
+
+    /* Styling for preformatted text (used by backticks in markdown) */
+    pre, code {{
+        width: 100% !important;
+        max-width: none !important;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        white-space: pre-wrap; /* Ensures long lines wrap */
     }}
 
 
