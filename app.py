@@ -18,17 +18,17 @@ custom_css = f"""
     /* General styling for text and font */
     html, body, [class*="st-"] {{
         font-family: 'Inter', sans-serif;
-        color: #000000;
+        color: #e0f2f7;
     }}
 
     /* Main content area styling */
     .main {{
-        background-color: #e0f2f7;
+        background-color: #000000;
         padding: 20px;
         border-radius: 10px;
     }}
     .stApp {{
-        background-color: #1a1a2e;
+        background-color: #000000;
     }}
 
     /* Sidebar styling (Commands Menu) */
