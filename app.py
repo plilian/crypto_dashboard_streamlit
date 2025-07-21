@@ -23,7 +23,7 @@ custom_css = f"""
 
     /* Main content area styling */
     .main {{
-        background-color: #000000;
+        background-color: #34495e;
         padding: 20px;
         border-radius: 10px;
     }}
