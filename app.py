@@ -27,7 +27,6 @@ custom_css = f"""
         background-color: #1a1a2e;
     }}
 
-    /* Layout and Padding Fixes */
     .block-container {{
         padding-left: 0.5rem !important;
         padding-right: 0.5rem !important;
@@ -40,6 +39,11 @@ custom_css = f"""
         max-width: none !important;
         margin: 0 !important;
         padding: 0 !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        flex-basis: auto !important;
+        flex-grow: 1 !important;
+        flex-shrink: 1 !important;
     }}
 
     [data-testid="stHorizontalBlock"],
@@ -52,6 +56,10 @@ custom_css = f"""
         max-width: none !important;
         padding: 0 !important;
         margin: 0 !important;
+        min-width: 0 !important;
+        flex-basis: auto !important;
+        flex-grow: 1 !important;
+        flex-shrink: 1 !important;
     }}
 
     [data-testid="stMarkdownContainer"],
@@ -62,6 +70,7 @@ custom_css = f"""
         margin: 0 !important;
         word-break: break-word;
         overflow-wrap: break-word;
+        min-width: 0 !important;
     }}
 
     [data-testid="stMarkdownContainer"] p,
@@ -72,6 +81,7 @@ custom_css = f"""
         margin-top: 0.5rem !important;
         margin-bottom: 0.5rem !important;
         padding: 0 !important;
+        min-width: 0 !important;
     }}
 
     .stAlert {{
@@ -80,31 +90,44 @@ custom_css = f"""
         margin-bottom: 1rem !important;
         width: 100% !important;
         max-width: none !important;
+        min-width: 0 !important;
     }}
-    /* End Layout and Padding Fixes */
 
-    .sidebar .sidebar-content {{
-        background-color: #000000;
-        color: #000000;
+    [data-testid="stSidebar"] {{
+        background-color: #e0f2f7 !important;
     }}
-    .stSidebar h1, .stSidebar h2, .stSidebar h3, .stSidebar h4, .stSidebar h5, .stSidebar h6 {{
-        color: #000000;
+    [data-testid="stSidebarContent"] {{
+        background-color: #e0f2f7 !important;
     }}
-    .stRadio > label {{
-        color: #000000;
+
+    [data-testid="stSidebarHeader"] h2 {{
+        color: #000000 !important;
     }}
-    .stRadio [data-testid="stRadio"] > div > label {{
-        color: #000000;
+
+    [data-testid="stSidebar"] .stRadio div[data-testid="stRadio"] label span p {{
+        color: #000000 !important;
+    }}
+    [data-testid="stSidebar"] .stRadio div[data-testid="stRadio"] label:hover span p {{
+        color: #e94560 !important;
+    }}
+    [data-testid="stSidebar"] .stRadio div[data-testid="stRadio"] label[data-checked="true"] span p {{
+        color: #e94560 !important;
+    }}
+    [data-testid="stSidebar"] .stRadio div[data-testid="stRadio"] label div[data-testid="stFlex"] svg circle {{
+        fill: #000000 !important;
+    }}
+    [data-testid="stSidebar"] .stRadio div[data-testid="stRadio"] label[data-checked="true"] div[data-testid="stFlex"] svg circle {{
+        fill: #e94560 !important;
     }}
 
     h1, h2, h3, h4, h5, h6 {{
-        color: #e94560;
+        color: #e94560 !important;
         text-align: left;
     }}
 
     .stButton>button {{
-        background-color: #a7d9e8;
-        color: white;
+        background-color: #a7d9e8 !important;
+        color: #000000 !important;
         border-radius: 8px;
         border: none;
         padding: 10px 20px;
@@ -113,40 +136,41 @@ custom_css = f"""
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }}
     .stButton>button:hover {{
-        background-color: #7bc6e0;
+        background-color: #7bc6e0 !important;
+        color: #000000 !important;
         transform: translateY(-2px);
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
     }}
 
     .stTextInput>div>div>input,
     .stSelectbox>div>div>div {{
-        background-color: #16213e;
-        color: #e0e0e0;
+        background-color: #16213e !important;
+        color: #e0e0e0 !important;
         border-radius: 8px;
         border: 1px solid #533483;
         padding: 10px;
     }}
     .stSelectbox > div[data-baseweb="select"] ul {{
-        background-color: #16213e;
-        color: #e0e0e0;
+        background-color: #16213e !important;
+        color: #e0e0e0 !important;
     }}
     .stSelectbox > div[data-baseweb="select"] li:hover {{
-        background-color: #0f3460;
+        background-color: #0f3460 !important;
     }}
 
     .stCode {{
-        background-color: #16213e;
+        background-color: #16213e !important;
         border-radius: 8px;
         padding: 15px;
     }}
     .stExpander {{
-        background-color: #16213e;
+        background-color: #16213e !important;
         border-radius: 8px;
         padding: 10px;
         margin-bottom: 10px;
     }}
     .stExpander > div > div > p {{
-        color: #e0e0e0;
+        color: #e0e0e0 !important;
     }}
 
     .footer {{
