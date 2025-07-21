@@ -2,7 +2,6 @@ import streamlit as st
 import commands
 import utils
 
-# --- Initial Page Config ---
 st.set_page_config(
     page_title="Pumpies Crypto Dashboard",
     page_icon="📈",
@@ -10,54 +9,102 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- Dark Theme CSS ---
 custom_css = f"""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
-    /* General styling for text and font */
     html, body, [class*="st-"] {{
         font-family: 'Inter', sans-serif;
-        color: #000000; /* dark text color for readability on light backgrounds */
+        color: #000000;
     }}
 
-    /* Main content area styling */
     .main {{
-        background-color: #e0f2f7; /* Deep blue/purple for main content */
+        background-color: #e0f2f7;
         padding: 20px;
         border-radius: 10px;
     }}
     .stApp {{
-        background-color: #1a1a2e; /* Whole app background - same as main for seamless look */
+        background-color: #1a1a2e;
     }}
 
-    /* Sidebar styling (Commands Menu) */
+    /* Layout and Padding Fixes */
+    .block-container {{
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+        max-width: 100% !important;
+    }}
+
+    div[data-testid^="st"] {{
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }}
+
+    [data-testid="stHorizontalBlock"],
+    [data-testid="stVerticalBlock"],
+    [data-testid="stColumn"],
+    [data-testid="stForm"],
+    [data-testid="stContainer"]
+    {{
+        width: 100% !important;
+        max-width: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }}
+
+    [data-testid="stMarkdownContainer"],
+    [data-testid="stText"] {{
+        width: 100% !important;
+        max-width: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }}
+
+    [data-testid="stMarkdownContainer"] p,
+    [data-testid="stText"] p,
+    p {{
+        max-width: none !important;
+        width: 100% !important;
+        margin-top: 0.5rem !important;
+        margin-bottom: 0.5rem !important;
+        padding: 0 !important;
+    }}
+
+    .stAlert {{
+        border-radius: 8px;
+        padding: 1rem !important;
+        margin-bottom: 1rem !important;
+        width: 100% !important;
+        max-width: none !important;
+    }}
+    /* End Layout and Padding Fixes */
+
     .sidebar .sidebar-content {{
         background-color: #000000;
-        color: #000000; /* Dark text on sidebar for readability */
+        color: #000000;
     }}
-    /* Adjust sidebar header and radio button text color for consistency */
     .stSidebar h1, .stSidebar h2, .stSidebar h3, .stSidebar h4, .stSidebar h5, .stSidebar h6 {{
-        color: #000000; /* Ensure sidebar headers are light */
+        color: #000000;
     }}
-    .stRadio > label {{ /* Targeting radio button labels in sidebar */
-        color: #000000; /* Ensure radio button text is light */
+    .stRadio > label {{
+        color: #000000;
     }}
     .stRadio [data-testid="stRadio"] > div > label {{
-        color: #000000; /* Specific selector for radio button text */
+        color: #000000;
     }}
 
-
-    /* Titles and headings styling */
     h1, h2, h3, h4, h5, h6 {{
-        color: #e94560; /* Vibrant accent color for titles */
+        color: #e94560;
         text-align: left;
     }}
 
-    /* Button styling */
     .stButton>button {{
-        background-color: #a7d9e8; /* Dark blue for buttons */
-        color: white; /* White text on buttons for good contrast */
+        background-color: #a7d9e8;
+        color: white;
         border-radius: 8px;
         border: none;
         padding: 10px 20px;
@@ -66,41 +113,34 @@ custom_css = f"""
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }}
     .stButton>button:hover {{
-        background-color: #7bc6e0; /* Purple on hover for interactivity */
+        background-color: #7bc6e0;
         transform: translateY(-2px);
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
     }}
 
-    /* Input fields and Selectboxes styling */
     .stTextInput>div>div>input,
     .stSelectbox>div>div>div {{
-        background-color: #16213e; /* Slightly lighter dark blue for input fields */
-        color: #e0e0e0; /* Light text color for input */
+        background-color: #16213e;
+        color: #e0e0e0;
         border-radius: 8px;
-        border: 1px solid #533483; /* Accent border color */
+        border: 1px solid #533483;
         padding: 10px;
     }}
-    /* Styling for dropdown options in selectbox */
     .stSelectbox > div[data-baseweb="select"] ul {{
-        background-color: #16213e; /* Dropdown menu background */
-        color: #e0e0e0; /* Dropdown menu text color */
+        background-color: #16213e;
+        color: #e0e0e0;
     }}
     .stSelectbox > div[data-baseweb="select"] li:hover {{
-        background-color: #0f3460; /* Dropdown menu item hover */
+        background-color: #0f3460;
     }}
 
-
-    /* Other Streamlit elements styling */
-    .stAlert {{
-        border-radius: 8px;
-    }}
     .stCode {{
-        background-color: #16213e; /* Darker background for code blocks */
+        background-color: #16213e;
         border-radius: 8px;
         padding: 15px;
     }}
     .stExpander {{
-        background-color: #16213e; /* Darker background for expanders */
+        background-color: #16213e;
         border-radius: 8px;
         padding: 10px;
         margin-bottom: 10px;
@@ -109,20 +149,19 @@ custom_css = f"""
         color: #e0e0e0;
     }}
 
-    /* Footer styling */
     .footer {{
         position: fixed;
         left: 0;
         bottom: 0;
         width: 100%;
-        background-color: #16213e; /* Footer background */
+        background-color: #16213e;
         color: #e0e0e0;
         text-align: center;
         padding: 10px 0;
         font-size: 0.9em;
     }}
     .footer a {{
-        color: #e94560; /* Accent color for footer links */
+        color: #e94560;
         text-decoration: none;
     }}
     .footer a:hover {{
@@ -132,13 +171,10 @@ custom_css = f"""
 """
 st.markdown(custom_css, unsafe_allow_html=True)
 
-# --- Main Dashboard Title and Welcome Message ---
 st.title("📈 Pumpies Crypto Dashboard")
 st.markdown("Welcome to the comprehensive Pumpies Crypto Dashboard! Use the tools below to get real-time market information.")
 
-# --- Sidebar Navigation (Commands Menu) ---
 st.sidebar.header("Commands")
-# This is for picking what command to run from the sidebar.
 command_choice = st.sidebar.radio(
     "Choose a command:",
     (
@@ -157,17 +193,13 @@ command_choice = st.sidebar.radio(
         "Token Orders",
         "Trade Info"
     ),
-    index=0 # Starts on the Introduction page
+    index=0
 )
 
-# Small helper for coin names (not a big deal, just for display)
 coin_name_translations = {
     "bitcoin": "Bitcoin",
     "ethereum": "Ethereum"
 }
-
-# --- Command Logic: What happens when you pick a command ---
-# Now calling functions from the 'commands' module for each choice.
 
 if command_choice == "Introduction":
     commands.display_introduction()
@@ -211,7 +243,6 @@ elif command_choice == "Token Orders":
 elif command_choice == "Trade Info":
     commands.display_trade_info()
 
-# --- Footer Section ---
 st.markdown(
     """
     <div class='footer'>
